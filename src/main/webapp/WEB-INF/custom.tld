@@ -1,0 +1,39 @@
+<taglib>
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>2.0</jsp-version>
+    <short-name>Custom TLD</short-name>
+    <tag>
+        <name>add_order</name>
+        <tag-class>org.ley.AddOrderTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>id</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>color</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>size</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <name>make_order</name>
+        <tag-class>org.ley.BuyTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>address</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>delivery</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>user</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+</taglib>

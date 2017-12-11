@@ -1,0 +1,23 @@
+<hibernate-configuration>
+<!-- какие классы отвечают  за таблицы, классы с помощью аннотаций описывают, как должна выглядеть таблица-->
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
+
+        <!--встроенная бд-->
+        <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
+        <!--/-->
+
+        <property name="hibernate.connection.url">jdbc:hsqldb:file:marketdb/db</property>
+        <property name="hibernate.connection.username">SA</property>
+
+        <!-- автоматическое создание таблиц-->
+        <property name="hibernate.hbm2ddl.auto">create</property>
+        <!--/-->
+
+        <!--ссылка на мапинг-->
+        <mapping class="org.ley.hibernate.Purchase"/>
+        <mapping class="org.ley.hibernate.UserOrder"/>
+        <mapping class="org.ley.hibernate.Comment"/>
+    </session-factory>
+
+</hibernate-configuration>

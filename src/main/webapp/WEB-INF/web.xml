@@ -3,19 +3,120 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+
     <servlet>
         <!--мой сервлет -->
         <servlet-name>MainServlet</servlet-name>
-        <servlet-class>org.ley.MainServlet</servlet-class>
-        <init-param>
-            <param-name>default-tab</param-name>
-            <param-value>1</param-value>
-        </init-param>
+        <servlet-class>org.ley.ProductServlet</servlet-class>
     </servlet>
+
+    <!--параметры инициализации сервлета -->
+    <context-param>
+        <param-name>default-tab</param-name>
+        <param-value>1</param-value>
+    </context-param>
+
+    <!--адрес-->
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/product</url-pattern>
     </servlet-mapping>
 
-</web-app>
+    <servlet>
+        <servlet-name>LanguageServlet</servlet-name>
+        <servlet-class>org.ley.LanguageServlet</servlet-class>
+    </servlet>
 
+    <servlet-mapping>
+        <servlet-name>LanguageServlet</servlet-name>
+        <url-pattern>/language</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CommentServlet</servlet-name>
+        <servlet-class>org.ley.CommentServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CommentServlet</servlet-name>
+        <url-pattern>/comment</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>RemoveFromBasetServlet</servlet-name>
+        <servlet-class>org.ley.RemoveFromBasetServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>RemoveFromBasetServlet</servlet-name>
+        <url-pattern>/remove</url-pattern>
+    </servlet-mapping>
+
+    <!--авторизация-->
+    <security-constraint>
+        <web-resource-collection>
+            <url-pattern>/secured/*</url-pattern>
+        </web-resource-collection>
+
+        <auth-constraint>
+            <role-name>tomcat</role-name>
+        </auth-constraint>
+
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+    <login-config>
+        <auth-method>FORM</auth-method>
+
+        <form-login-config>
+            <form-login-page>/auth/auth.jsp</form-login-page>
+            <form-error-page>/auth/auth-error.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+
+    <security-role>
+        <role-name>tomcat</role-name>
+    </security-role>
+
+    <listener>
+        <listener-class>org.ley.hibernate.HibernateListener</listener-class>
+    </listener>
+
+
+    <filter>
+        <filter-name>setCharacterEncodingFilter</filter-name>
+        <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+
+
+    <filter-mapping>
+        <filter-name>setCharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+    <filter>
+
+        <display-name>LogFilter</display-name>
+
+        <filter-name>LogFilter</filter-name>
+
+        <filter-class>org.ley.LogFilter</filter-class>
+
+    </filter>
+
+    <filter-mapping>
+
+        <filter-name>LogFilter</filter-name>
+
+        <url-pattern>/*</url-pattern>
+
+    </filter-mapping>
+</web-app>

@@ -5,36 +5,44 @@ apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'com.bmuschko.tomcat'
 
-sourceCompatibility = 1.5
+sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
     compile 'org.springframework:spring-context:4.3.11.RELEASE'
+    compile 'org.hibernate:hibernate-core:5.2.11.Final'
+    compile 'org.hsqldb:hsqldb:2.2.9'
+    compile group: 'javax.servlet', name: 'jstl', version:'1.2'
+    compile group: 'org.freemarker', name: 'freemarker', version: '2.3.14'
 }
 
-repositories {
-    jcenter()
-}
 
 dependencies {
 
     testCompile 'junit:junit:4.12'
 
     providedCompile "javax.servlet:javax.servlet-api:3.1.0"
-
+    compileOnly group: 'javax.servlet.jsp', name: 'jsp-api', version: '2.0'
 }
 
+
+
 dependencies {
-    def tomcatVersion = '9.0.0'
+    def tomcatVersion = '9.0.1'
 
     tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
-            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-logging-juli:9.0.0.M6",
             "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
 }
 
+tomcat {
+    httpProtocol = 'org.apache.coyote.http11.Http11Nio2Protocol'
+    ajpProtocol  = 'org.apache.coyote.ajp.AjpNio2Protocol'
+}
 
 buildscript {
 
@@ -43,6 +51,6 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.2'
+        classpath 'com.bmuschko:gradle-tomcat-plugin:2.4.2'
     }
 }
